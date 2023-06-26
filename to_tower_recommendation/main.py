@@ -135,6 +135,14 @@ for epoch in range(num_epochs):
 
     print(f'Epoch {epoch+1}/{num_epochs}: Train Loss = {epoch_train_loss/len(train_loader)}, Val Loss = {epoch_val_loss/len(val_loader)}')
     
+# save the model
+torch.save(model.state_dict(), 'model.pth')
+
+# if you want to load the model
+model = TwoTowerNetwork(num_user_features, num_item_features, embedding_dim).to(device)
+model.load_state_dict(torch.load('model.pth'))
+model.to(device)
+model.eval()
 
 # Inference code below, to use the model for making recommendations
 # Compute the embeddings for all users and items
